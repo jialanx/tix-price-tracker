@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Price Checker</title>
+    <script>
+    function getPrice() {
+      const url = document.getElementById("urlInput").value;  // get input value
+      document.getElementById("price").innerText = "Loading...";
+      fetch("/get_price?url=" + encodeURIComponent(url))  // send URL as query parameter
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("price").innerText = "Price: " + data.price;
+        })
+        .catch(error => {
+          document.getElementById("price").innerText = "Error fetching price";
+        });
+    }
+    </script>
+</head>
+<body>
+
+<h1>Check Recent Ticket Price</h1>
+
+<!-- Input form -->
+<input type="text" id="urlInput" placeholder="Enter Vivid Seats URL" size="80" />
+<button onclick="getPrice()">Get Price</button>
+
+<p id="price"></p>
+
+</body>
+</html>
